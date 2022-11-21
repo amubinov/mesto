@@ -28,16 +28,16 @@
 @import url(../blocks/popup/__title/popup__title.css);
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/__input/_text/popup__input_text.css);
-@import url(../blocks/popup/__input/_text/popup__input_text_type_name.css);
-@import url(../blocks/popup/__input/_text/popup__input_text_type_job.css);
+@import url(../blocks/popup/__input/_text/type/popup__input_text_type_name.css);
+@import url(../blocks/popup/__input/_text/type/popup__input_text_type_job.css);
 
 /* elemints */
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
-@import url(../blocks/element/__button/element__button.css);
-@import url(../blocks/element/__button-title/element__button-title.css);
-@import url(../blocks/element/__button-like/element__button-like.css);
+@import url(../blocks/element/__bottom/element__bottom.css);
+@import url(../blocks/element/__bottom-title/element__bottom-title.css);
+@import url(../blocks/element/__bottom-like/element__bottom-like.css);
 
 /* footer */
 @import url(../blocks/footer/footer.css);
