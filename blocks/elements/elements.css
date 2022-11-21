@@ -1,5 +1,5 @@
 .elements {
-  font-family: "Inter", "Arial", "sans-serif";
+  font-family: "Inter", "Arial", sans-serif;
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
@@ -10,10 +10,4 @@
   max-width: 880px;
   margin: 0;
   padding: 0;
-}
-
-@media screen and (max-width: 736px) {
-  .elements {
-    grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
-  }
 }

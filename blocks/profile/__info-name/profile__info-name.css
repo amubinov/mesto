@@ -1,4 +1,4 @@
-.profile-info-name {
+.profile__info-name {
   margin: 0;
   font-style: normal;
   font-weight: 500;
@@ -7,8 +7,7 @@
 }
 
 @media screen and (max-width: 1040px) {
-  .profile-info-name {
-    font-weight: 500;
+  .profile__info-name {
     font-size: 27px;
     line-height: 33px;
     grid-column-start: 2;

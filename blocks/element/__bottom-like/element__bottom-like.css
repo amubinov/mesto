@@ -7,3 +7,6 @@
   padding: 0;
 }
 
+.element__bottom-like:hover {
+  opacity: .5;
+}
