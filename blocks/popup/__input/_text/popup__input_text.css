@@ -1,4 +1,4 @@
-.input__text {
+.popup__input-text {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -12,10 +12,10 @@
   line-height: 17px;
 }
 
-.input__text::placeholder {
+.popup__input-text::placeholder {
   color: black;
 }
 
-.input__text:focus {
+.popup__input-text:focus {
   border: 3px solid blue;
 }
