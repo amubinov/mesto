@@ -5,8 +5,8 @@ const popupSaveButton = popupElement.querySelector(".popup__save"); // button po
 const profileName = document.querySelector(".profile__info-name"); // profile name
 const profileJob = document.querySelector(".profile__info-job"); // profile job
 const formElement = document.querySelector(".popup__content"); // submit form
-const jobInput = document.querySelector(".popup__input_text_type_job"); // entry field job
-const nameInput = document.querySelector(".popup__input_text_type_name"); // entry field name
+const nameInput = document.querySelector(".popup__input_text_type-name"); // entry field name
+const jobInput = document.querySelector(".popup__input_text_type-job"); // entry field job
 
 // popup open
 const togglePopupVisibility = function (event) {
