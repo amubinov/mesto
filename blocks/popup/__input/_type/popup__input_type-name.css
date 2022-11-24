@@ -1,10 +1,1 @@
-.popup__input_type_name {
-  margin-top: 35px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
 
-@media screen and (max-width: 736px) {
-  .popup__input_type_name {
-    margin-top: 47px;
-  }
-}
