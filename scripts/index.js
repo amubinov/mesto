@@ -9,12 +9,12 @@ const nameInput = document.querySelector(".popup__input_type_name"); // entry fi
 const jobInput = document.querySelector(".popup__input_type_job"); // entry field job
 
 // popup open
-const togglePopupVisibility = function (event) {
+const openPopup = function () {
     jobInput.value = profileJob.textContent;
     nameInput.value = profileName.textContent;
-  popupElement.classList.add("popup_is-opened");
+    popupElement.classList.add("popup_is-opened");
  };
-popupOpenButtonElement.addEventListener("click", togglePopupVisibility);
+popupOpenButtonElement.addEventListener("click", openPopup);
 
 // popup close
 const closePopup = function () {
@@ -37,6 +37,21 @@ function formSubmitHandler (evt) {
 
 formElement.addEventListener('submit', formSubmitHandler);
 
+const popupElementAdd = document.getElementById('addPlace');
+const openButtonElementAdd = document.querySelector('.profile__add-button');
+const namePlace = document.querySelector('.popup__input_type_place-name');
+const placeURL = document.querySelector('.popup__input_type_place-url');
+
+const openAddPopup = function () {
+  namePlace.value = namePlace.textContent;
+  placeURL.value = placeURL.textContent;
+  popupElementAdd.classList.add('#addPlace');
+}
+openButtonElementAdd.addEventListener("click", popupElementAdd);
+
+popupCloseButtonElement.addEventListener("click", function () {
+  popupElementAdd.classList.remove("popup_is-opened");
+});
 
 
 
