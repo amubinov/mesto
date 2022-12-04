@@ -9,12 +9,12 @@ const nameInput = document.querySelector(".popup__input_type_name"); // entry fi
 const jobInput = document.querySelector(".popup__input_type_job"); // entry field job
 
 // popup open
-const openPopup = function () {
+const togglePopupVisibility = function () {
     jobInput.value = profileJob.textContent;
     nameInput.value = profileName.textContent;
     popupElement.classList.add("popup_is-opened");
  };
-popupOpenButtonElement.addEventListener("click", openPopup);
+popupOpenButtonElement.addEventListener("click", togglePopupVisibility);
 
 // popup close
 const closePopup = function () {
@@ -39,19 +39,19 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 const popupElementAdd = document.getElementById('addPlace');
 const openButtonElementAdd = document.querySelector('.profile__add-button');
+const popupCloseButtonElementAdd = document.getElementById('popupClosePlace')
 const namePlace = document.querySelector('.popup__input_type_place-name');
 const placeURL = document.querySelector('.popup__input_type_place-url');
 
-const openAddPopup = function () {
-  namePlace.value = namePlace.textContent;
-  placeURL.value = placeURL.textContent;
-  popupElementAdd.classList.add('#addPlace');
+const togglePopupVisibilityCard = function () {
+  popupElementAdd.classList.add("popup_is-opened")
 }
-openButtonElementAdd.addEventListener("click", popupElementAdd);
+openButtonElementAdd.addEventListener("click", togglePopupVisibilityCard);
 
-popupCloseButtonElement.addEventListener("click", function () {
+const closePopupPlace = function () {
   popupElementAdd.classList.remove("popup_is-opened");
-});
+};
+popupCloseButtonElementAdd.addEventListener("click", closePopupPlace);
 
 
 
