@@ -37,6 +37,7 @@
 @import url(../blocks/element/__bottom/element__bottom.css);
 @import url(../blocks/element/__bottom-title/element__bottom-title.css);
 @import url(../blocks/element/__bottom-like/element__bottom-like.css);
+@import url(../blocks/element/__trash/element__trash.css);
 
 /* footer */
 @import url(../blocks/footer/footer.css);

@@ -25,48 +25,6 @@
       </section>
       <section>
         <ul class="elements">
-          <li class="element">
-            <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-            <div class="element__bottom">
-              <h2 class="element__bottom-title">Карачаевск</h2>
-              <button class="element__bottom-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
-            <div class="element__bottom">
-              <h2 class="element__bottom-title">Гора Эльбрус</h2>
-              <button class="element__bottom-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
-            <div class="element__bottom">
-              <h2 class="element__bottom-title">Домбай</h2>
-              <button class="element__bottom-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/elbrus.jpg" alt="Эльбрус">
-            <div class="element__bottom">
-              <h2 class="element__bottom-title">Гора Эльбрус</h2>
-              <button class="element__bottom-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
-            <div class="element__bottom">
-              <h2 class="element__bottom-title">Домбай</h2>
-              <button class="element__bottom-like" type="button"></button>
-            </div>
-          </li>
-          <li class="element">
-            <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-            <div class="element__bottom">
-              <h2 class="element__bottom-title">Карачаево-Черкессия</h2>
-              <button class="element__bottom-like" type="button"></button>
-            </div>
-          </li>
         </ul>
       </section>
     </main>
@@ -88,7 +46,7 @@
       <div class="popup__container">
         <button class="popup__close animation" type="button" id="popupClosePlace"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__content" name="popup__content">
+        <form class="popup__content" id="popup__content-place" name="popup__content">
           <input class="popup__input popup__input_type_place-name" type="text" placeholder="Название" name="place-name"/>
           <input class="popup__input popup__input_type_place-url" type="text" placeholder="Ссылка на картинку" name="place-url"/>
           <button class="popup__save" type="submit">Создать</button>
@@ -97,7 +55,8 @@
     </div>
     <template id="elements-template">
       <li class="element">
-        <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
+        <a href="#" class="element__trash"></a>
+        <img class="element__image">
         <div class="element__bottom">
           <h2 class="element__bottom-title"></h2>
           <button class="element__bottom-like" type="button"></button>
