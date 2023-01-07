@@ -1,18 +1,26 @@
 .profile__info {
-  margin: 22px 0 25px 0;
   display: grid;
-  grid-template-columns: max-content min-content;
-  grid-template-rows: min-content min-content;
+  grid-template-areas:
+    "name edit"
+    "status .";
   column-gap: 18px;
-  row-gap: 10px;
-  align-items: center;
+  align-items: baseline;
+  max-width: 336px;
 }
 
-@media screen and (max-width: 1040px) {
+@media screen and (max-width: 675px) {
   .profile__info {
-    margin: 22px 0 0 0;
+    max-width: 282px;
+  }
+}
+
+
+@media screen and (max-width: 599px) {
+  .profile__info {
+    grid-template-areas:
+      "name edit"
+      "status status";
+    text-align: center;
     column-gap: 10px;
-    row-gap: 8px;
-    grid-template-columns: 18px max-content min-content;
   }
 }

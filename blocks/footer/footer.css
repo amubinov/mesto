@@ -1,12 +1,12 @@
 .footer {
-  padding: 64px 0 0 0;
-  font-family: "Inter", "Arial", sans-serif;
+  margin: 67px auto 0;
   max-width: 880px;
-  margin: 0;
+  width: 100%;
 }
 
-@media screen and (max-width: 736px) {
+@media screen and (max-width: 900px) {
   .footer {
-    padding-top: 48px;
+    margin: 48px 0 0 19px;
+    max-width: 228px;
   }
 }

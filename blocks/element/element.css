@@ -1,6 +1,6 @@
 .element {
-  background-color: white;
-  border-radius: 10px;
-  display: grid;
-  color: black;
+  line-height: 0;
+  max-width: 282px;
+  list-style: none;
+  position: relative;
 }

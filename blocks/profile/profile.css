@@ -1,17 +1,17 @@
 .profile {
-  font-family: "Inter", "Arial", sans-serif;
-  display: grid;
+  max-width: 880px;
+  display: flex;
   justify-content: space-between;
+  margin: 40px auto 51px;
+  position: relative;
   align-items: center;
-  padding: 40px 0 42px;
-  grid-template-columns: 150px 1fr 150px;
 }
 
-@media screen and (max-width: 1040px) {
+@media screen and (max-width: 600px) {
   .profile {
-    display: flex;
     flex-direction: column;
-    padding-top: 44px;
-    padding-bottom: 35px;
+    gap: 36px;
+    max-width: 400px;
+    margin: 42px auto 36px;
   }
 }
