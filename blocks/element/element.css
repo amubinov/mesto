@@ -1,6 +1,7 @@
 .element {
-  line-height: 0;
-  max-width: 282px;
-  list-style: none;
+  width: 100%;
+  height: min-content;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
