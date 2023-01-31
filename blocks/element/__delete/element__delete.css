@@ -1,5 +1,5 @@
 .element__delete {
-  background: url('../../../images/trash.svg');
+  background: url(../../../images/delete.svg);
   background-repeat: no-repeat;
   border: none;
   width: 18px;

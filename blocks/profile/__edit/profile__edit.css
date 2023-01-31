@@ -2,13 +2,12 @@
   width: 24px;
   height: 24px;
   margin: 0;
-  background-image: url('../../../images/editprofile.svg');
-  background-repeat: no-repeat;
+  background-image: url('../../../images/profile-Edit-Button.svg');
   background-color: #000;
   background-position: center;
   background-clip: content-box;
   padding: 0;
-  border: 1px solid #ffffff;
+  border: none;
   grid-area: edit;
   transition: .5s;
   cursor: pointer;
