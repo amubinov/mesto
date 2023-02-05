@@ -16,6 +16,7 @@ const enableValidation = (settings) => {
 
     inputElement.classList.add(settings.inputErrorClass);
     errorElement.textContent = errorMessage;
+    errorElement.classList.add(settings.errorClass);
   };
 
   //Спрятать ошибку
@@ -57,11 +58,14 @@ const enableValidation = (settings) => {
   }
 
   const toggleButtonState = (inputList, buttonElement) => {
-    const isInvalidInput = hasInvalidInput(inputList);
-    buttonElement.classList.toggle(settings.inactiveButtonClass, isInvalidInput);
-    buttonElement.disabled = isInvalidInput;
+    if (hasInvalidInput(inputList)) {
+      buttonElement.classList.add("inactiveButtonClass");
+      buttonElement.disabled = true;
+    } else {
+      buttonElement.classList.remove("inactiveButtonClass");
+      buttonElement.disabled = false;
+    }
   };
-
 
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {

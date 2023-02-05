@@ -115,13 +115,13 @@ function openPopup(popup) {
       closePopup(popup);
     }
     else
-      if (event.target.classList.contains('popup_edit')) {
-        closePopup(popup);
-      }
-      else
-        if (event.target.classList.contains('popup_photo')) {
-          closePopup(popup);
-        }
+    if (event.target.classList.contains('popup_edit')) {
+      closePopup(popup);
+    }
+    else
+    if (event.target.classList.contains('popup_photo')) {
+      closePopup(popup);
+    }
   })
 
   //вешаю слушатель на Escape и закрываю попап по нажатию на Escape
