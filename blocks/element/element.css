@@ -1,7 +1,0 @@
-.element {
-  width: 100%;
-  height: min-content;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
