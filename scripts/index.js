@@ -105,9 +105,6 @@ function createCard(title, link) {
     openPopup(popupPhoto);
   });
   return inputCard;
-
-
-
 };
 function openPopup(popup) {
   popup.classList.add('popup_opened');

@@ -16,7 +16,6 @@ const enableValidation = (settings) => {
 
     inputElement.classList.add(settings.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(settings.errorClass); console.log(errorElement.classList)
   };
 
   //Спрятать ошибку
@@ -27,7 +26,7 @@ const enableValidation = (settings) => {
     errorElement.textContent = '';
   };
 
-  //Проверка валидности 
+  //Проверка валидности
   const checkInputValidity = (formElement, inputElement) => {
     if (!inputElement.validity.valid) {
       showInputError(formElement, inputElement, inputElement.validationMessage);
@@ -58,12 +57,11 @@ const enableValidation = (settings) => {
   }
 
   const toggleButtonState = (inputList, buttonElement) => {
-    if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add(settings.inactiveButtonClass);
-    } else {
-      buttonElement.classList.remove(settings.inactiveButtonClass);
-    }
-  }
+    const isInvalidInput = hasInvalidInput(inputList);
+    buttonElement.classList.toggle(settings.inactiveButtonClass, isInvalidInput);
+    buttonElement.disabled = isInvalidInput;
+  };
+
 
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
