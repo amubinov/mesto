@@ -50,7 +50,8 @@ const handleKeyUp = (e) => {
 
 const handleOverlayClick = (e) => {
   if (!e.target.closest('.popup__container')) {
-    closePopup(e.target);
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
     validationAddForm.resetValidation();
     validationEditForm.resetValidation();
     hideInputValue();
@@ -71,42 +72,6 @@ const hideInputValue = function () {
   titleInput.value = '';
   linkInput.value = '';
 }
-
-// переключатели Add
-popupAddCard.addEventListener('click', function () {
-  openPopup(popupAdd);
-  validationAddForm.disableButton(buttonAddSubmit);
-})
-
-popupAddClose.addEventListener('click', function () {
-  closePopup(popupAdd);
-  validationAddForm.resetValidation();
-  hideInputValue();
-})
-
-// переключатели Edit
-popupOpenEditForm.addEventListener('click', function () {
-  openPopup(popupEdit);
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileStatus.textContent;
-})
-
-popupEditClose.addEventListener('click', function () {
-  closePopup(popupEdit);
-  validationEditForm.resetValidation();
-})
-
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-
-  profileName.textContent = nameInput.value;
-  profileStatus.textContent = jobInput.value;
-
-  closePopup(popupEdit);
-}
-
-formEditProfile.addEventListener('submit', handleProfileFormSubmit);
-
 
 const handleOpenImage = (title, image) => {
   popupCardTitle.textContent = title;
@@ -135,15 +100,16 @@ const renderCard = (element) => {
 initialCards.forEach((item) => {
   const cardElement = generateCard(item, cardTemplate);
   renderCard(cardElement);
+
 });
 
-function handleAddFormSubmit(evt) {
+const handleAddFormSubmit = (evt) => {
   evt.preventDefault();
 
   const cardData = generateCard({
-    title: titleInput.value,
-    image: linkInput.value,
-  },
+      title: titleInput.value,
+      image: linkInput.value,
+    },
     cardTemplate
   );
 
@@ -151,7 +117,15 @@ function handleAddFormSubmit(evt) {
 
   evt.target.reset()
   closePopup(popupAdd);
+}
 
+const handleProfileFormSubmit = (evt) => {
+  evt.preventDefault();
+
+  profileName.textContent = nameInput.value;
+  profileStatus.textContent = jobInput.value;
+
+  closePopup(popupEdit);
 }
 
 const validationEditForm = new FormValidator(validationConfig, '.popup__inputs_edit-item');
@@ -160,16 +134,40 @@ const validationAddForm = new FormValidator(validationConfig, '.popup__inputs_ad
 validationEditForm.enableValidation();
 validationAddForm.enableValidation();
 
+const openPopupAdd = () => {
+  openPopup(popupAdd);
+  validationAddForm.disableButton(buttonAddSubmit);
+  hideInputValue();
+};
 
+const openPopupEdit = () => {
+  openPopup(popupEdit);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileStatus.textContent;
+  validationEditForm.resetValidation();
+};
 
+popupAddCard.addEventListener('click', openPopupAdd);
+popupOpenEditForm.addEventListener('click', openPopupEdit);
 
-formAddCard.addEventListener('submit', handleAddFormSubmit);
-
-popupImageClose.addEventListener('click', function () {
-  closePopup(popupCard);
+popupAddClose.addEventListener('click', () => {
+  closePopup(popupAdd);
+  validationAddForm.resetValidation();
+  hideInputValue();
 })
 
+popupEditClose.addEventListener('click', () => {
+  closePopup(popupEdit);
+  validationEditForm.resetValidation();
+})
+
+popupImageClose.addEventListener('click', () => {
+  closePopup(popupCard);
+})
 
 popupEdit.addEventListener("click", handleOverlayClick);
 popupAdd.addEventListener("click", handleOverlayClick);
 popupCard.addEventListener("click", handleOverlayClick);
+
+formAddCard.addEventListener('submit', handleAddFormSubmit);
+formEditProfile.addEventListener('submit', handleProfileFormSubmit);
