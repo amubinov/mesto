@@ -48,15 +48,15 @@ const handleKeyUp = (e) => {
   }
 }
 
-const handleOverlayClick = (e) => {
-  if (!e.target.closest('.popup__container')) {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-    validationAddForm.resetValidation();
-    validationEditForm.resetValidation();
-    hideInputValue();
+const handleOverlayClick = (e, popupSelector, openedClass, closePopupFn, resetAddFormFn, resetEditFormFn, hideInputValueFn) => {
+  if (!e.target.closest(popupSelector)) {
+    const openedPopup = document.querySelector(`.${openedClass}`);
+    closePopupFn(openedPopup);
+    resetAddFormFn();
+    resetEditFormFn();
+    hideInputValueFn();
   }
-}
+};
 
 const openPopup = function (popup) {
   popup.classList.add('popup_opened');
