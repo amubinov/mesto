@@ -48,13 +48,8 @@ const handleKeyUp = (e) => {
   }
 }
 
-const handleOverlayClick = (e, popupSelector, openedClass, closePopupFn, resetAddFormFn, resetEditFormFn, hideInputValueFn) => {
+const handleOverlayClick = (e, popupSelector,) => {
   if (!e.target.closest(popupSelector)) {
-    const openedPopup = document.querySelector(`.${openedClass}`);
-    closePopupFn(openedPopup);
-    resetAddFormFn();
-    resetEditFormFn();
-    hideInputValueFn();
   }
 };
 
