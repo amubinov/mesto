@@ -30,7 +30,7 @@ export default class PopupWithConfirmation extends Popup {
     }
 
     //удалить карточку со страницы
-    deleteCard() {
-        this._card.remove();
-    }
-}
+//     deleteCard() {
+//         this._card.remove();
+//     }
+// }
