@@ -4,7 +4,7 @@ import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithImage from "../components/../components/PopupWithImage.js";
 import { initialCards } from "../utils/initialCards.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import { token, cohort } from "../utils/autorization.js"
@@ -29,7 +29,6 @@ const inputName = document.querySelector('.popup__input_type_name'); //поле 
 const inputAbout = document.querySelector('.popup__input_type_about'); //поле для ввода нового рода деятельности (о себе)
 const elementsContainer = document.querySelector('.elements');  // контейнер, куда добавляются элементы из массива
 const profileCardsAddButton = document.querySelector('.profile__add-button'); // Кнопка на профиле добавления карточек-новых мест
-
 
 /** Подключить API */
 const api = new Api({
@@ -77,16 +76,9 @@ const createNewCard = (data) => {
 						console.log(err)
 					})
 		},
-    handleDeleteClick: (id, card) => {
-      popupConfirmation.open(id, card);
-      api.deleteCard(id)
-        .then(() => {
-          card.remove();
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+		handleDeleteClick: (id, card) => {
+			popupConfirmation.open(id, card);
+			},
 	})
 
 	return newCard.createElements()
