@@ -1,40 +1,44 @@
-import Popup from './Popup.js';
+import Popup from './Popup.js'
 
-class PopupWithForm extends Popup {
-    constructor(selectorPopup, handleFormSubmit) {
-        super(selectorPopup);
-        this._handleFormSubmit = handleFormSubmit
-        this._popupForm = this._popup.querySelector('.popup__form');
-        this._inputList = this._popupForm.querySelectorAll('.popup__input');
-    }
+export default class PopupWithForm extends Popup {
+	constructor(popupSelector, handleFormSubmit) {
+		super(popupSelector);
+		this._handleFormSubmit = handleFormSubmit;
+		this._popupForm = this._popupElement.querySelector('.popup__form');
+		this._inputs = this._popupElement.querySelectorAll('.popup__input');
+		this._submitButtonElement = this._popupElement.querySelector('.popup__submit-button');
+	}
 
-    _getInputValues() {
-        const formValues = {};
-        this._inputList.forEach(input => {
-            formValues[input.name] = input.value;
-        });
-        return formValues;
-    }
+	/** _getInputValues - приватный метод: собрать данные всех полей формы. */
+	_getInputValues() {
+		this._formValues = {};
+		this._inputs.forEach((input) => {
+			this._formValues[input.name] = input.value
+		});
+		return this._formValues;
+	};
 
-    close() {
-        super.close();
-        this._popupForm.reset();
-    }
+	/** перезаписать родительский метод setEventListeners */
+	setEventListeners() {
+		super.setEventListeners();
+		this._popupElement.addEventListener('submit', (evt) => {
+			evt.preventDefault();
+			this._handleFormSubmit(this._getInputValues());
+		})
+	}
 
-    setInputValues(data) {
-        this._inputList.forEach(input => {
-            input.value = data[input.name];
-        })
-    }
+	/** перезаписать родительский метод close */
+	close() {
 
-    setEventListeners() {
-        super.setEventListeners();
-        this._popup.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            this._handleFormSubmit(this._getInputValues());
-            this.close();
-        });
-    }
+		this._popupForm.reset();
+		super.close();
+	}
+	/** изменить текст кнопки submit в процессе обмена данными с сервером */
+	renderLoading(isLoading) {
+		if (isLoading === true) {
+			this._submitButtonElement.textContent = 'Сохранение...';
+		} else {
+			this._submitButtonElement.textContent = 'Сохранить';
+		}
+	}
 }
-
-export default PopupWithForm;

@@ -1,19 +1,16 @@
 .profile__info {
-    font-family: 'Inter', Arial, sans-serif;
-    padding-left: 30px;
-    max-width: 336px;
-    display: flex;
-    flex-direction: column;
+  margin-top: 0;
+  margin-bottom: 0;
+  row-gap: 9px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 336px;
+  min-width: 282px;
 }
 
-@media screen and (max-width: 768px) {
-    .profile__info {
-        padding: 0;
-    }
-}
-
-@media screen and (max-width: 440px) {
-    .profile__info {
-        max-width: 282px;
-    }
+@media screen and (max-width: 400px) {
+  .profile__info {
+    gap: 5px;
+  }
 }
