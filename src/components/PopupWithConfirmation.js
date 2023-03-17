@@ -1,4 +1,3 @@
-
 import Popup from './Popup.js'
 export default class PopupWithConfirmation extends Popup {
     constructor(selector, handleDeleteClick) {
@@ -23,7 +22,6 @@ export default class PopupWithConfirmation extends Popup {
     }
 
     setEventListeners() {
-
         this._popupForm.addEventListener('submit', (evt) => {
             evt.preventDefault()
             this._handleDeleteClick(this._id, this._card)
