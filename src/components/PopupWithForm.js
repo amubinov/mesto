@@ -1,44 +1,36 @@
-import Popup from './Popup.js'
+import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-	constructor(popupSelector, handleFormSubmit) {
-		super(popupSelector);
-		this._handleFormSubmit = handleFormSubmit;
-		this._popupForm = this._popupElement.querySelector('.popup__form');
-		this._inputs = this._popupElement.querySelectorAll('.popup__input');
-		this._submitButtonElement = this._popupElement.querySelector('.popup__submit-button');
-	}
+  constructor(popupSelector, handleSubmit) {
+    super(popupSelector);
+    this._handleSubmit = handleSubmit;
+    this._form = this._popup.querySelector(".form");
+    this._button = this._popup.querySelector(".form__submit");
+  }
 
-	/** _getInputValues - приватный метод: собрать данные всех полей формы. */
-	_getInputValues() {
-		this._formValues = {};
-		this._inputs.forEach((input) => {
-			this._formValues[input.name] = input.value
-		});
-		return this._formValues;
-	};
+  close() {
+    this._form.reset();
+    super.close();
+  }
 
-	/** перезаписать родительский метод setEventListeners */
-	setEventListeners() {
-		super.setEventListeners();
-		this._popupElement.addEventListener('submit', (evt) => {
-			evt.preventDefault();
-			this._handleFormSubmit(this._getInputValues());
-		})
-	}
+  _getInputValues() {
+    const inputs = Array.from(this._form.querySelectorAll(".form__text"));
+    return inputs.map((item) => item.value);
+  }
 
-	/** перезаписать родительский метод close */
-	close() {
+  setEventListeners() {
+    this._popup.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleSubmit(this._getInputValues());
+    });
+    super.setEventListeners();
+  }
 
-		this._popupForm.reset();
-		super.close();
-	}
-	/** изменить текст кнопки submit в процессе обмена данными с сервером */
-	renderLoading(isLoading) {
-		if (isLoading === true) {
-			this._submitButtonElement.textContent = 'Сохранение...';
-		} else {
-			this._submitButtonElement.textContent = 'Сохранить';
-		}
-	}
+  renderLoading(isLoading, buttonText) {
+    if (isLoading) {
+      this._button.textContent = "Сохранение...";
+    } else {
+      this._button.textContent = buttonText;
+    }
+  }
 }
