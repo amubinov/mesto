@@ -1,109 +1,86 @@
-import likeButton from "../images/like-button.svg";
-import likeButttonBlack from "../images/like-button_black.svg";
-
 export default class Card {
-  constructor(
-    userId,
-    cardData,
-    templateSelector,
-    handleCardClick,
-    likes,
-    handleTrashClick,
-    dislikeCard,
-    likeCard
-  ) {
+  constructor(dataCard, userId, selector, handleCardClick, {handleDeleteCard, handleLikeClick}) {
+    this._dataCard = dataCard;
+    this._name = dataCard.name;
+    this._link = dataCard.link;
+    this._cardId = dataCard._id;
+    this._likes = dataCard.likes;
     this._userId = userId;
-    this._cardData = cardData;
-    this._name = this._cardData.name;
-    this._link = this._cardData.link;
-    this._templateSelector = templateSelector;
+    this._selector = selector;
     this._handleCardClick = handleCardClick;
-    this._likes = likes;
-    this._handleTrashClick = handleTrashClick;
-    this._dislikeCard = dislikeCard;
-    this._likeCard = likeCard;
-    this.updateLikes = this.updateLikes.bind(this);
-    this.removeCard = this.removeCard.bind(this);
+    this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeClick = handleLikeClick;
   }
 
   _getTemplate() {
-    const cardElement = document
-      .querySelector(this._templateSelector)
-      .content.querySelector(".photo-grid__item")
-      .cloneNode(true);
+    const cardTemplate = document
+    .querySelector(this._selector)
+    .content
+    .querySelector('.cards__card')
+    .cloneNode(true);
 
-    return cardElement;
+    return cardTemplate;
   }
 
-  generateCard() {
-    this._element = this._getTemplate();
+  // Выстраиваем карточки из массива (template)
+  createCard() {
+    this._card = this._getTemplate();
+    this._cardName = this._card.querySelector('.cards__name');
+    this._cardImage = this._card.querySelector('.cards__image');
+    this._likeButton = this._card.querySelector('.cards__icon-heart');
+    this._deleteButton = this._card.querySelector('.cards__delete');
+    this._likeCounter = this._card.querySelector('.cards__number-of-likes');
 
-    this._photo = this._element.querySelector(".photo-grid__picture");
-    this._likesCount = this._element.querySelector(".photo-grid__likes-count");
-
-    this._photo.setAttribute("src", this._link);
-    this._photo.setAttribute("alt", this._name);
-    this._element.querySelector(".photo-grid__title").textContent = this._name;
-    this._likesCount.textContent = this._likes;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardName.textContent = this._name;
 
     this._setEventListeners();
-    this._checkDeleteButton();
-    this._checkIfLiked();
 
-    return this._element;
-  }
-
-  updateLikes(res) {
-    if (this._like.classList.contains("photo-grid__like_active")) {
-      this._like.classList.toggle("photo-grid__like_active");
-      this._like.src = likeButton;
-    } else {
-      this._like.classList.toggle("photo-grid__like_active");
-      this._like.src = likeButttonBlack;
+// отображение корзины только на своих карточках:
+    if (this._dataCard.owner._id !== this._userId) {
+      this._card.querySelector('.cards__delete').classList.add('cards__delete_hidden')
     }
-    this._likesCount.textContent = res.likes.length;
+
+    this._updateLikesView();
+
+    return this._card;
   }
 
-  removeCard() {
-    this._element.remove();
+  // Отображение количество лайков карточки и переключает фон у лайка
+  _updateLikesView() {
+    this._likeCounter.textContent = this._likes.length;
+    if (this.isLiked()) {
+      this._likeButton.classList.add('cards__icon-heart_is-active')
+    } else {
+      this._likeButton.classList.remove('cards__icon-heart_is-active')
+    }
   }
 
-  _setEventListeners() {
-    this._element
-      .querySelector(".photo-grid__trash-button")
-      .addEventListener("click", () => {
-        this._handleTrashClick();
-      });
+  // сообщает, есть ли на карточке лайк
+  isLiked() {
+    return Boolean(this._likes.some(user => user._id === this._userId));
+  }
 
-    this._like = this._element.querySelector(".photo-grid__like");
+  likesCounter(numOfLikes) {
+    this._likes = numOfLikes;
+    this._updateLikesView();
+  }
 
-    this._like.addEventListener("click", () => {
-      if (this._like.classList.contains("photo-grid__like_active")) {
-        this._dislikeCard();
-      } else {
-        this._likeCard();
-      }
+  deleteClick() {
+    this._card.remove();
+    this._card = null;
+  }
+
+   _setEventListeners = () => {
+    this._likeButton.addEventListener('click', () => {
+      this._handleLikeClick(this._cardId);
     });
-
-    this._photo.addEventListener("click", () => {
+    this._deleteButton.addEventListener('click', () => {
+      this._handleDeleteCard(this._cardId);
+    });
+    this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
-  }
-
-  _checkDeleteButton() {
-    if (this._cardData.owner._id !== this._userId) {
-      this._element.querySelector(".photo-grid__trash-button").style.display =
-        "none";
-    }
-  }
-
-  _checkIfLiked() {
-    const isLiked = this._cardData.likes.some((item) => {
-      return item._id === this._userId;
-    });
-    if (isLiked) {
-      this._like.src = likeButttonBlack;
-      this._like.classList.toggle("photo-grid__like_active");
-    }
-  }
+  };
 }

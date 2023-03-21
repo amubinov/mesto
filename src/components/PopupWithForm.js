@@ -1,36 +1,47 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, handleSubmit) {
+  constructor(popupSelector, handleFormSubmit) {
     super(popupSelector);
-    this._handleSubmit = handleSubmit;
-    this._form = this._popup.querySelector(".form");
-    this._button = this._popup.querySelector(".form__submit");
+    this._handleFormSubmit = handleFormSubmit;
+    this._form = this._popup.querySelector('.popup__form');
+    this._inputList = this._form.querySelectorAll('.popup__input');
   }
 
-  close() {
-    this._form.reset();
-    super.close();
-  }
-
+  // метод собирает данные всех полей формы
   _getInputValues() {
-    const inputs = Array.from(this._form.querySelectorAll(".form__text"));
-    return inputs.map((item) => item.value);
-  }
+    const values = {}; // создаем пустой объект
+    // собираем в него значения всех полей из формы
+    this._inputList.forEach(input => {
+      const name = input.name;
+      const value = input.value;
 
-  setEventListeners() {
-    this._popup.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      this._handleSubmit(this._getInputValues());
+      values[name] = value;
     });
-    super.setEventListeners();
+    return values; //
   }
 
-  renderLoading(isLoading, buttonText) {
-    if (isLoading) {
-      this._button.textContent = "Сохранение...";
-    } else {
-      this._button.textContent = buttonText;
-    }
+  // метод добавляет обработчик клика иконке закрытия и обработчик сабмита формы
+  setEventListeners() {
+    super.setEventListeners();
+    this._form.addEventListener('submit', (evt) => {
+      this._handleFormSubmit(evt, this._getInputValues());
+    });
+  }
+
+  // при закрытии попапа форма должна ещё и сбрасываться
+  close() {
+    super.close();
+    this._form.reset();
+  }
+
+  setFormValues(values) {
+    this._inputList.forEach(input => {
+      const name = input.name;
+
+      if(values[name]) {
+        input.value = values[name]
+      }
+    });
   }
 }

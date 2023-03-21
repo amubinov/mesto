@@ -3,14 +3,15 @@ import Popup from "./Popup.js";
 export default class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
-    this._photo = this._popup.querySelector(".popup__photo");
-    this._caption = this._popup.querySelector(".popup__figcaption");
+    this._popupImage = this._popup.querySelector('.popup__cards-image');
+    this._popupImageName = this._popup.querySelector('.popup__cards-name');
   }
 
   open(name, link) {
-    this._photo.setAttribute("src", link);
-    this._photo.setAttribute("alt", name);
-    this._caption.textContent = name;
+    this._popupImage.src = link; // устанавливаем ссылку
+    this._popupImage.alt = name; // устанавливаем подпись картинке
+    this._popupImageName.textContent = name;
+
     super.open();
   }
 }

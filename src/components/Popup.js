@@ -1,36 +1,41 @@
+// класс Popup отвечает за открытие и закрытие попапа
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    this.open = this.open.bind(this);
-    this._handleEscClose = this._handleEscClose.bind(this);
-    this.close = this.close.bind(this);
-    this.setEventListeners = this.setEventListeners.bind(this);
+    this._button = this._popup.querySelector('.popup__button-submit');
   }
 
+// открытие попапа
   open() {
-    this._popup.classList.add("popup_opened");
-    document.addEventListener("keydown", this._handleEscClose);
+    this._popup.classList.add('popup_opened');
+    document.addEventListener('keyup', this._handleEscClose);
   }
 
+  // закрытие попапа
   close() {
-    this._popup.classList.remove("popup_opened");
-    document.removeEventListener("keydown", this._handleEscClose);
+    this._popup.classList.remove('popup_opened');
+    document.removeEventListener('keyup', this._handleEscClose);
   }
 
-  _handleEscClose(evt) {
-    if (evt.key === "Escape") {
+  // содержит логику закрытия попапа клавишей Esc
+  _handleEscClose = (evt) => {
+    if (evt.key === 'Escape') {
       this.close();
-    }
+      };
+    };
+
+  // добавляет слушатель клика иконке закрытия попапа
+  setEventListeners() {
+    this._popup.addEventListener('mousedown', (e) => {
+      if (e.target.classList.contains('popup') || e.target.classList.contains('popup__button-close')) {
+        this.close();
+      };
+    });
   }
 
-  setEventListeners() {
-    this._popup.addEventListener("click", (evt) => {
-      if (
-        evt.target.classList.contains("popup") ||
-        evt.target.classList.contains("popup__cross")
-      ) {
-        this.close();
-      }
-    });
+  //  уведомление пользователя о процессе загрузки,
+  // меняется текст кнопки на: «Сохранение...», пока данные загружаются:
+  setButtonText(text) {
+    this._button.textContent = text;
   }
 }
