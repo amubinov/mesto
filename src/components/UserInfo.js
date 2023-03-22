@@ -1,35 +1,45 @@
-// Класс `UserInfo` отвечает за управление отображением информации
-// о пользователе на странице.
-
 export default class UserInfo {
-  constructor({ userNameSelector, userJobSelector, avatarSelector }) {
-    this._userName = document.querySelector(userNameSelector);
-    this._userJob = document.querySelector(userJobSelector);
-    this._userAvatar = document.querySelector(avatarSelector);
-  }
+	constructor({ userName, userInfo, userAvatar }) {
 
-  // возвращает объект с данными пользователя
-  getUserInfo() {
-    return {
-      name: this._userName.textContent,
-      job: this._userJob.textContent,
-    };
-  }
+		//Принимает в конструктор объект с селекторами двух элементов:
+		//элемента имени пользователя и элемента информации о себе.
 
-  // возвращает ID пользователя
-  getUserId() {
-    return this._userId;
-  }
+		this._userName = document.querySelector(userName);
+		this._userInfo = document.querySelector(userInfo);
+		this._userAvatar = document.querySelector(userAvatar);
+	}
 
-  // принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo(userData) {
-    this._userName.textContent = userData.name;
-    this._userJob.textContent = userData.about;
-    this._userId = userData._id;
-    this._userAvatar.src = userData.avatar;
-  }
+	//Содержит публичный метод getUserInfo, который возвращает объект с данными пользователя.
+	//Этот метод пригодится когда данные пользователя нужно будет подставить в форму при открытии.
 
-  setUserAvatar() {
-    return this._userAvatar.src;
-  }
+	getUserInfo() {
+
+		const data = {
+			name: this._userName.textContent,
+			about: this._userInfo.textContent
+		}
+		return data;
+	}
+
+
+	// Содержит публичный метод setUserInfo, который принимает новые данные пользователя и добавляет их на страницу.
+
+	setUserInfo(data) {
+		this._userName.textContent = data.name;
+		this._userInfo.textContent = data.about;
+		this._userAvatar.src = data.avatar;
+		this._userId = data.userId;
+	}
+
+	changeUserInfo(data) {
+		this._userName.textContent = data.userName;
+		this._userInfo.textContent = data.userInfo;
+	}
+
+	changeUserAvatar(data) {
+		this._userAvatar = data.userAvatar
+	}
+	getUserId() {
+		return this._userId;
+	}
 }

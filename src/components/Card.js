@@ -1,86 +1,108 @@
 export default class Card {
-  constructor(dataCard, userId, selector, handleCardClick, {handleDeleteCard, handleLikeClick}) {
-    this._dataCard = dataCard;
-    this._name = dataCard.name;
-    this._link = dataCard.link;
-    this._cardId = dataCard._id;
-    this._likes = dataCard.likes;
-    this._userId = userId;
-    this._selector = selector;
-    this._handleCardClick = handleCardClick;
-    this._handleDeleteCard = handleDeleteCard;
-    this._handleLikeClick = handleLikeClick;
-  }
+    constructor(
+        data,
+        userId,
+        templateSelector, {
+            handleCardClick,
+            handleDeleteClick,
+            handleLikeClick
+        }
+    ) {
+        this._data = data
+        this._itemName = data.name;
+        this._itemLink = data.link;
+        this._likes = data.likes;
+        this._cardId = data._id
+        this._userId = userId
+        this._templateSelector = templateSelector;
+        this._handleCardClick = handleCardClick;
+        this._handleLikeClick = handleLikeClick;
+        this._handleDeleteClick = handleDeleteClick;
+        this._isUserCard = userId === data.owner._id;
+        this._element = this._getTemplate();
+        this._elementImg = this._cardElement.querySelector('.element__image'); //найдем картинку 
+        this._elementTitle = this._cardElement.querySelector('.element__title'); //заголовок
+        this._elementDelete = this._cardElement.querySelector('.element__delete');
+        this._elementLike = this._cardElement.querySelector('.element__like'); //добавляем функциональность лайкам
+        this._counterLikes = this._cardElement.querySelector('.element__like-counter');
+    };
 
-  _getTemplate() {
-    const cardTemplate = document
-    .querySelector(this._selector)
-    .content
-    .querySelector('.cards__card')
-    .cloneNode(true);
-
-    return cardTemplate;
-  }
-
-  // Выстраиваем карточки из массива (template)
-  createCard() {
-    this._card = this._getTemplate();
-    this._cardName = this._card.querySelector('.cards__name');
-    this._cardImage = this._card.querySelector('.cards__image');
-    this._likeButton = this._card.querySelector('.cards__icon-heart');
-    this._deleteButton = this._card.querySelector('.cards__delete');
-    this._likeCounter = this._card.querySelector('.cards__number-of-likes');
-
-    this._cardImage.src = this._link;
-    this._cardImage.alt = this._name;
-    this._cardName.textContent = this._name;
-
-    this._setEventListeners();
-
-// отображение корзины только на своих карточках:
-    if (this._dataCard.owner._id !== this._userId) {
-      this._card.querySelector('.cards__delete').classList.add('cards__delete_hidden')
+    // Проверка юзер-лайков
+    checkUserLikes() {
+        return this._likes.some(item => item._id === this._userId);
     }
 
-    this._updateLikesView();
-
-    return this._card;
-  }
-
-  // Отображение количество лайков карточки и переключает фон у лайка
-  _updateLikesView() {
-    this._likeCounter.textContent = this._likes.length;
-    if (this.isLiked()) {
-      this._likeButton.classList.add('cards__icon-heart_is-active')
-    } else {
-      this._likeButton.classList.remove('cards__icon-heart_is-active')
+    // ID карточки
+    getIdCard() {
+        return this._cardId
     }
-  }
 
-  // сообщает, есть ли на карточке лайк
-  isLiked() {
-    return Boolean(this._likes.some(user => user._id === this._userId));
-  }
+    //Трансформ лайка после проверки
+    colorLikes() {
+        if (this.checkUserLikes()) {
+            this._addLike()
+        } else {
+            this._deleteLike()
+        }
+    }
 
-  likesCounter(numOfLikes) {
-    this._likes = numOfLikes;
-    this._updateLikesView();
-  }
+    //Добавить лайк
+    _addLike() {
+        this._elementLike.classList.add('element__like_active')
+    }
 
-  deleteClick() {
-    this._card.remove();
-    this._card = null;
-  }
+    //Удалить лайк
+    _deleteLike() {
+        this._elementLike.classList.remove('element__like_active')
+    }
 
-   _setEventListeners = () => {
-    this._likeButton.addEventListener('click', () => {
-      this._handleLikeClick(this._cardId);
-    });
-    this._deleteButton.addEventListener('click', () => {
-      this._handleDeleteCard(this._cardId);
-    });
-    this._cardImage.addEventListener('click', () => {
-      this._handleCardClick(this._name, this._link);
-    });
-  };
+    _setListenersItems() {
+        this._elementDelete.addEventListener('click', this._handleDeleteClick);
+
+        this._elementLike.addEventListener('click', () => {
+            this._handleLikeClick(this._cardId)
+            this.colorLikes()
+        })
+        this._elementImg.addEventListener('click', () => {
+            this._handleCardClick(this._itemName, this._itemLink)
+        })
+
+        if (!this._isUserCard) {
+            this._elementDelete.remove();
+            this._elementDelete = null;
+        } else {
+            this._elementDelete.addEventListener('click',
+                () => {
+                    this._handleDeleteClick(this._cardId, this._element)
+                });
+        }
+    }
+    _getTemplate() {
+
+        // забираем разметку из HTML и клонируем элемент
+        this._cardElement = document
+            .querySelector(this._templateSelector)
+            .content.querySelector('.element') //article, li
+            .cloneNode(true);
+
+        // вернём DOM-элемент карточки
+        return this._cardElement;
+    }
+
+    createElements() {
+        this._elementTitle.textContent = this._itemName; 
+        this._elementImg.alt = this._itemName; 
+        this._elementImg.src = this._itemLink 
+        this._counterLikes.textContent = this._likes.length;
+        this.setLikes(this._likes)
+        this._setListenersItems();
+        return this._element;
+    }
+
+    // Установить лайк
+    setLikes(likesList) {
+        this._likes = likesList
+        this._counterLikes.textContent = this._likes.length
+        this.colorLikes()
+    }
 }

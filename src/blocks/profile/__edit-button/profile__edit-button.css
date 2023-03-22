@@ -1,21 +1,23 @@
 .profile__edit-button {
-  background: url(../../../image/icon-pencil.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 10px 10px;
-  padding: 0px;
-  -o-object-fit: contain;
-     object-fit: contain;
-  border: 1px solid #FFFFFF;
+  background-image: url(../../../images/VectorEdit.svg);
+  background-color: inherit;
   width: 24px;
   height: 24px;
+  border: #fff solid 1px;
   cursor: pointer;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  padding: 14px;
 }
 
-@media screen and (max-width: 568px) {
+@media screen and (max-width: 400px) {
   .profile__edit-button {
-    background-size: 7.5px 7.5px;
     width: 18px;
     height: 18px;
+    padding: 10.5px;
   }
+}
+.profile__edit-button:hover {
+  transition: 0.8s;
+  opacity: 60%;
 }
