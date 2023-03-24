@@ -94,17 +94,20 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .catch((err) => {
     console.log(err)
   })
+
 const handleDeleteClick = (id, card) => {
   popupConfirmation.renderLoading(true);
   api.deleteCard(id)
     .then(() => {
-      card.deleteCard();
+      card.remove();
       popupConfirmation.close();
     })
     .catch((error) => {
-      console.log(error)
-        .finally(() => popupConfirmation.renderLoading(false))
+      console.log(error);
     })
+    .finally(() => {
+      popupConfirmation.renderLoading(false);
+    });
 }
 
 // Функция попапа увеличения картинки
